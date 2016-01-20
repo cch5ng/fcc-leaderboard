@@ -65,12 +65,17 @@ export default class App extends React.Component {
 					</nav>
 				</div>
 
+				<div className="row">
+					<h2 className="center">Leaderboard</h2>
+				</div>
+
 				<Table data={this.state.data}
 					rowsCount={this.state.data.length}
 					rowHeight={40}
 					headerHeight={45}
-					width={1000}
-					height={4050}>
+					width={680}
+					height={4050} className="center">
+
 					<Column
 						header={<Cell>#</Cell>}
 						cell={props => (
@@ -78,7 +83,7 @@ export default class App extends React.Component {
 								{props.rowIndex + 1}
 							</Cell>
 						)}
-						width={100}
+						width={50}
 					/>
 					<Column
 						header={<Cell>Camper Name</Cell>}
@@ -92,7 +97,7 @@ export default class App extends React.Component {
 					<Column
 						header={<Cell onClick={this.handleClickMonthPoints.bind(this)} 
 								className="dynamic-header" >
-									Points (Last 30 days) 
+									Points (last month) 
 									<i className={this.state.url === urlRecent ? "fa fa-caret-down" : "hide-fa"}></i>
 								</Cell>}
 						cell={props => (
@@ -100,12 +105,12 @@ export default class App extends React.Component {
 							  {this.state.data[props.rowIndex].recent}
 							</Cell>
 						)}
-						width={300}
+						width={165}
 					/>
 					<Column
 						header={<Cell onClick={this.handleClickTotalPoints.bind(this)}
 								className="dynamic-header" >
-								Points (Total) 
+								Points (total) 
 								<i className={this.state.url === urlTotal ? "fa fa-caret-down" : "hide-fa"}></i>
 								</Cell>}
 						cell={props => (
@@ -113,7 +118,7 @@ export default class App extends React.Component {
 							  {this.state.data[props.rowIndex].alltime}
 							</Cell>
 						)}
-						width={300}
+						width={165}
 					/>
 				</Table>
 			</div>

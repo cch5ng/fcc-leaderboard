@@ -4,15 +4,13 @@
 $primary-color: #ffe6e6;
 $nav-color: #006400;
 
-//mixins
-@mixin box-sizing($border-box) {
-	-webkit-box-sizing: $border-box;
-	-moz-box-sizing: $border-box;
-	box-sizing: $border-box;
-}
-
 body {
 	background: $primary-color;
+}
+
+.navbar navbar-default {
+	border-width: 0;
+	border-radius: none;
 }
 
 .navbar {
@@ -21,6 +19,11 @@ body {
 
 .nav-logo {
 	width: 269px;
+	margin-top: -5px;
+}
+
+.center {
+	text-align: center;
 }
 
 .avatar {
@@ -41,27 +44,7 @@ body {
 	display: none;
 }
 
-.gap-medium {
-	height: 40px;
-}
-
-textarea, iframe {
-	@include box-sizing(border-box);
-	border-radius: 5px;
-	width: 100%;
-	overflow: auto;
-}
-
-.link {
-	font-size: 16px;
-}
-
-.footer {
-	padding-top: 30px;
-}
-
-//override font awesome
-
-.fa-heart {
-	color: #e708a6;
+//override fixed-data-table css
+.fixedDataTableLayout_main {
+	margin: 0 auto;
 }
