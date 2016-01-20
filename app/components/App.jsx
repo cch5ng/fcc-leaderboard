@@ -7,7 +7,7 @@ var FixedDataTable = require('fixed-data-table');
 const {Table, Column, Cell} = FixedDataTable;
 
 var urlRecent = "http://fcctop100.herokuapp.com/api/fccusers/top/recent";
-//var urlTotal = "http://fcctop100.herokuapp.com/api/fccusers/top/alltime";
+var urlTotal = "http://fcctop100.herokuapp.com/api/fccusers/top/alltime";
 
 export default class App extends React.Component {
 	constructor() {
@@ -15,15 +15,12 @@ export default class App extends React.Component {
 		this.state = {data:[], url: urlRecent};
 	}
 
-	//makes ajax call
 	loadLeaders() {
 		$.ajax({
 			url: this.state.url,
 			datatype: 'json',
 			success: (data) => {
 				this.setState({data: data});
-				console.log('data: ' + data);
-				console.log('url: ' + this.state.url)
 			},
 			error: (xhr, status, err) => {
 				console.error(this.props.url, status, err.toString());
@@ -33,17 +30,29 @@ export default class App extends React.Component {
 
 	componentDidMount() {
 		this.loadLeaders();
-		//should this be polling?
+//should this be polling?
 	}
 
 //TODO click handler update the ajax url based on which leaderboard type of selected; 
 //use state to store current url
 
-// 	handleChange(event) {
-// 		var md = marked(event.target.value);
-// 		this.setState({content: event.target.value, markdown: md});
-// 		$('#preview_iframe').contents().find('html').html(this.state.markdown);
-// 	}
+	handleClickMonthPoints(event) {
+		event.preventDefault();
+		console.log('recent points clicked');
+		this.setState({url: urlRecent}, () => {
+			console.log('url: ' + this.state.url);
+			this.loadLeaders();
+		});
+	}
+
+	handleClickTotalPoints(event) {
+		event.preventDefault();
+		console.log('total points clicked');
+		this.setState({url: urlTotal}, () => {
+			console.log('url: ' + this.state.url);
+			this.loadLeaders();
+		});
+	}
 
 	render() {
 
@@ -84,7 +93,7 @@ export default class App extends React.Component {
 						width={300}
 					/>
 					<Column
-						header={<Cell>Points (Last 30 days)</Cell>}
+						header={<Cell onClick={this.handleClickMonthPoints.bind(this)} >Points (Last 30 days)</Cell>}
 						cell={props => (
 							<Cell {...props}>
 							  {this.state.data[props.rowIndex].recent}
@@ -93,7 +102,7 @@ export default class App extends React.Component {
 						width={300}
 					/>
 					<Column
-						header={<Cell>Points (Total)</Cell>}
+						header={<Cell onClick={this.handleClickTotalPoints.bind(this)} >Points (Total)</Cell>}
 						cell={props => (
 							<Cell {...props}>
 							  {this.state.data[props.rowIndex].alltime}
