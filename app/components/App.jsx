@@ -67,7 +67,11 @@ export default class App extends React.Component {
 					height={3000}>
 					<Column
 						header={<Cell>#</Cell>}
-						cell={<Cell>Count</Cell>}
+						cell={props => (
+							<Cell {...props}>
+								{props.rowIndex + 1}
+							</Cell>
+						)}
 						width={100}
 					/>
 					<Column
@@ -81,12 +85,20 @@ export default class App extends React.Component {
 					/>
 					<Column
 						header={<Cell>Points (Last 30 days)</Cell>}
-						cell={<Cell>Points (Last 30 days)</Cell>}
+						cell={props => (
+							<Cell {...props}>
+							  {this.state.data[props.rowIndex].recent}
+							</Cell>
+						)}
 						width={300}
 					/>
 					<Column
 						header={<Cell>Points (Total)</Cell>}
-						cell={<Cell>Points (Total)</Cell>}
+						cell={props => (
+							<Cell {...props}>
+							  {this.state.data[props.rowIndex].alltime}
+							</Cell>
+						)}
 						width={300}
 					/>
 				</Table>
