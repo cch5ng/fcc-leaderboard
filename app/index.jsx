@@ -10,4 +10,4 @@ require("!css!./fixed-data-table.css");
 
 var css = require("!css!sass!./main.scss");
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App url="http://fcctop100.herokuapp.com/api/fccusers/top/recent" />, document.getElementById('app'));

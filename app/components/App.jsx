@@ -6,11 +6,38 @@ import ReactDOM from 'react-dom';
 var FixedDataTable = require('fixed-data-table');
 const {Table, Column, Cell} = FixedDataTable;
 
- export default class App extends React.Component {
-// 	constructor(props) {
-// 		super(props);
-// 		this.state = {content: props.initialContent, markdown: props.initialMd};
-// 	}
+var urlRecent = "http://fcctop100.herokuapp.com/api/fccusers/top/recent";
+//var urlTotal = "http://fcctop100.herokuapp.com/api/fccusers/top/alltime";
+
+export default class App extends React.Component {
+	constructor() {
+		super();
+		this.state = {data:[], url: urlRecent};
+	}
+
+	//makes ajax call
+	loadLeaders() {
+		$.ajax({
+			url: this.state.url,
+			datatype: 'json',
+			success: (data) => {
+				this.setState({data: data});
+				console.log('data: ' + data);
+				console.log('url: ' + this.state.url)
+			},
+			error: (xhr, status, err) => {
+				console.error(this.props.url, status, err.toString());
+			}
+		})
+	}
+
+	componentDidMount() {
+		this.loadLeaders();
+		//should this be polling?
+	}
+
+//TODO click handler update the ajax url based on which leaderboard type of selected; 
+//use state to store current url
 
 // 	handleChange(event) {
 // 		var md = marked(event.target.value);
@@ -21,7 +48,7 @@ const {Table, Column, Cell} = FixedDataTable;
 	render() {
 
 		return (
-			<div className="container-fluid">
+			<div className="container-fluid" >
 				<div className="row">
 					<nav className="navbar navbar-default">
 						<div className="navbar-header">
@@ -32,8 +59,8 @@ const {Table, Column, Cell} = FixedDataTable;
 					</nav>
 				</div>
 
-				<Table
-					rowsCount={102}
+				<Table data={this.state.data}
+					rowsCount={this.state.data.length}
 					rowHeight={40}
 					headerHeight={45}
 					width={1000}
@@ -45,7 +72,11 @@ const {Table, Column, Cell} = FixedDataTable;
 					/>
 					<Column
 						header={<Cell>Camper Name</Cell>}
-						cell={<Cell>Camper Name</Cell>}
+						cell={props => (
+							<Cell {...props}>
+							  {this.state.data[props.rowIndex].username}
+							</Cell>
+						)}
 						width={300}
 					/>
 					<Column
