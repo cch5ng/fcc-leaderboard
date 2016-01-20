@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1401c4233dd3277b2841"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "892c1b47e21af38e18d2"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20375,6 +20375,33 @@
 							},
 							width: 165
 						})
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row footer' },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-xs-12 col-sm-12' },
+							_react2.default.createElement(
+								'p',
+								{ className: 'text-center' },
+								'Brought to you with ',
+								_react2.default.createElement('i', { className: 'fa fa-heart' }),
+								_react2.default.createElement('br', null),
+								'from ',
+								_react2.default.createElement(
+									'a',
+									{ href: 'http://www.carolchung.com', target: '_blank' },
+									'Tusk Tusk Dev.'
+								),
+								_react2.default.createElement('br', null),
+								_react2.default.createElement(
+									'a',
+									{ href: 'https://github.com/cch5ng/fcc-leaderboard', target: '_blank' },
+									'(source)'
+								)
+							)
+						)
 					)
 				);
 			}
@@ -27460,7 +27487,7 @@
 
 
 	// module
-	exports.push([module.id, "/* app/main.scss */\nbody {\n  background: #ffe6e6; }\n\n.navbar navbar-default {\n  border-width: 0;\n  border-radius: none; }\n\n.navbar {\n  background-color: #006400; }\n\n.nav-logo {\n  width: 269px;\n  margin-top: -5px; }\n\n.center {\n  text-align: center; }\n\n.avatar {\n  width: 28px;\n  border-radius: 3px; }\n\n.dynamic-header {\n  color: #21586b;\n  text-decoration: underline; }\n\n.fa {\n  text-decoration: underline; }\n\n.hide-fa {\n  display: none; }\n\n.fixedDataTableLayout_main {\n  margin: 0 auto; }\n", ""]);
+	exports.push([module.id, "/* app/main.scss */\nbody {\n  background: #ffe6e6; }\n\n.navbar navbar-default {\n  border-width: 0;\n  border-radius: none; }\n\n.navbar {\n  background-color: #006400; }\n\n.nav-logo {\n  width: 269px;\n  margin-top: -5px; }\n\n.center {\n  text-align: center; }\n\n.avatar {\n  width: 28px;\n  border-radius: 3px; }\n\n.dynamic-header {\n  color: #21586b;\n  text-decoration: underline; }\n\n.fa-caret-down {\n  text-decoration: underline; }\n\n.fa-heart {\n  color: #990033; }\n\n.hide-fa {\n  display: none; }\n\n.fixedDataTableLayout_main {\n  margin: 0 auto; }\n\n.footer {\n  padding-top: 30px; }\n", ""]);
 
 	// exports
 
