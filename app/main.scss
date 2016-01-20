@@ -36,8 +36,12 @@ body {
 	text-decoration: underline;
 }
 
-.fa {
+.fa-caret-down {
 	text-decoration: underline;
+}
+
+.fa-heart {
+	color: #990033;
 }
 
 .hide-fa {
@@ -47,4 +51,8 @@ body {
 //override fixed-data-table css
 .fixedDataTableLayout_main {
 	margin: 0 auto;
+}
+
+.footer {
+	padding-top: 30px;
 }
