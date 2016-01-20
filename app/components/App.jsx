@@ -38,18 +38,15 @@ export default class App extends React.Component {
 
 	handleClickMonthPoints(event) {
 		event.preventDefault();
-		console.log('recent points clicked');
 		this.setState({url: urlRecent}, () => {
-			console.log('url: ' + this.state.url);
+			//had to place this into a callback otherwise the old url would be used for 1-2 clicks
 			this.loadLeaders();
 		});
 	}
 
 	handleClickTotalPoints(event) {
 		event.preventDefault();
-		console.log('total points clicked');
 		this.setState({url: urlTotal}, () => {
-			console.log('url: ' + this.state.url);
 			this.loadLeaders();
 		});
 	}
@@ -93,7 +90,11 @@ export default class App extends React.Component {
 						width={300}
 					/>
 					<Column
-						header={<Cell onClick={this.handleClickMonthPoints.bind(this)} >Points (Last 30 days)</Cell>}
+						header={<Cell onClick={this.handleClickMonthPoints.bind(this)} 
+								className="dynamic-header" >
+									Points (Last 30 days) 
+									<i className={this.state.url === urlRecent ? "fa fa-caret-down" : "hide-fa"}></i>
+								</Cell>}
 						cell={props => (
 							<Cell {...props}>
 							  {this.state.data[props.rowIndex].recent}
@@ -102,7 +103,11 @@ export default class App extends React.Component {
 						width={300}
 					/>
 					<Column
-						header={<Cell onClick={this.handleClickTotalPoints.bind(this)} >Points (Total)</Cell>}
+						header={<Cell onClick={this.handleClickTotalPoints.bind(this)}
+								className="dynamic-header" >
+								Points (Total) 
+								<i className={this.state.url === urlTotal ? "fa fa-caret-down" : "hide-fa"}></i>
+								</Cell>}
 						cell={props => (
 							<Cell {...props}>
 							  {this.state.data[props.rowIndex].alltime}
