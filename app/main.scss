@@ -2,6 +2,7 @@
 
 //vars
 $primary-color: #ffe6e6;
+$nav-color: #006400;
 
 //mixins
 @mixin box-sizing($border-box) {
@@ -12,6 +13,14 @@ $primary-color: #ffe6e6;
 
 body {
 	background: $primary-color;
+}
+
+.navbar {
+	background-color: $nav-color;
+}
+
+.nav-logo {
+	width: 269px;
 }
 
 .gap-medium {

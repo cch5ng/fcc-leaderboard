@@ -1,48 +1,68 @@
 //app/components/App.jsx
 
 import React from 'react';
+import ReactDOM from 'react-dom';
+//import {Table, Column, Cell} from 'fixed-data-table';
+var FixedDataTable = require('fixed-data-table');
+const {Table, Column, Cell} = FixedDataTable;
 
-export default class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {content: props.initialContent, markdown: props.initialMd};
-	}
+ export default class App extends React.Component {
+// 	constructor(props) {
+// 		super(props);
+// 		this.state = {content: props.initialContent, markdown: props.initialMd};
+// 	}
 
-	handleChange(event) {
-		var md = marked(event.target.value);
-		this.setState({content: event.target.value, markdown: md});
-		$('#preview_iframe').contents().find('html').html(this.state.markdown);
-	}
+// 	handleChange(event) {
+// 		var md = marked(event.target.value);
+// 		this.setState({content: event.target.value, markdown: md});
+// 		$('#preview_iframe').contents().find('html').html(this.state.markdown);
+// 	}
 
 	render() {
 
 		return (
-			<div className="container">
-				<div className="row gap-medium"></div>
+			<div className="container-fluid">
 				<div className="row">
-					<div className="col-xs-6 col-sm-6">
-						<p className="h2">Markdown Editor <span className="link"><a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">(cheatsheet)</a></span></p>
-						{/* had to bind to this in the onChange call to handleChange() */}
-						<textarea cols="70" rows="25" className="editor" value={this.state.content} onChange={this.handleChange.bind(this)}></textarea>
-					</div>
-					<div className="col-xs-6 col-sm-6">
-						<h2>Preview</h2>
-						<iframe id="preview_iframe" height="505" seamless="true">
-						</iframe>
-					</div>
+					<nav className="navbar navbar-default">
+						<div className="navbar-header">
+							<a className="navbar-brand" href="#">
+								<img src="https://s3.amazonaws.com/freecodecamp/freecodecamp_logo.svg" alt="learn to code javascript at Free Code Camp logo" className="img-responsive nav-logo" />
+							</a>
+						</div>
+					</nav>
 				</div>
-				<div className="row footer">
-					<div className="col-xs-12 col-sm-12">
-						<p className="text-center">Brought to you with <i className="fa fa-heart"></i><br /> 
- from <a href="http://www.carolchung.com" target="_blank">Tusk Tusk Dev.</a><br />
-							<a href="https://github.com/cch5ng/markdown-editor" target="_blank">(source)</a>
-						</p>
-					</div>
-				</div>
+
+				<Table
+					rowsCount={102}
+					rowHeight={40}
+					headerHeight={45}
+					width={1000}
+					height={3000}>
+					<Column
+						header={<Cell>#</Cell>}
+						cell={<Cell>Count</Cell>}
+						width={100}
+					/>
+					<Column
+						header={<Cell>Camper Name</Cell>}
+						cell={<Cell>Camper Name</Cell>}
+						width={300}
+					/>
+					<Column
+						header={<Cell>Points (Last 30 days)</Cell>}
+						cell={<Cell>Points (Last 30 days)</Cell>}
+						width={300}
+					/>
+					<Column
+						header={<Cell>Points (Total)</Cell>}
+						cell={<Cell>Points (Total)</Cell>}
+						width={300}
+					/>
+				</Table>
 			</div>
 		);
 	}
 }
 
-App.propTypes = { initialContent: React.PropTypes.string };
-App.defaultProps = { initialContent: '', initialMd: ''};
+// App.propTypes = { initialContent: React.PropTypes.string };
+// App.defaultProps = { initialContent: '', initialMd: ''};
