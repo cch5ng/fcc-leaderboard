@@ -17,11 +17,15 @@ Aside from Facebook's React docs, I also referred to these articles:
 
 ## Pseudocode
 
-* Just print the table with dynamic content for default list
-  * Last month's leaders
+* Style the headers for point type to indicate which is currently selected and which are selectable
 
-* Add a click handler to update the list order based on the selected list type (last month or total points)
+* DONE Add a click handler to update the list order based on the selected list type (last month or total points)
+  * https://github.com/facebook/fixed-data-table/blob/master/examples/SortExample.js
 
-* Figure out the logic to update the table (col) for the non-selected list
+* DONE Figure out the logic to update the table (col) for the non-selected list
+  * think this is done defacto by just updating the source URL based on current logic
   * i.e. if the selected list is for last month's points
     * then the total points column will still need to be updated where the current user's total points is displayed
+
+* DONE - Just print the table with dynamic content for default list
+  * DONE - Last month's leaders
