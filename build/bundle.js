@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "c39316dc9348d66d2864"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1401c4233dd3277b2841"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -20206,7 +20206,7 @@
 	var Cell = FixedDataTable.Cell;
 
 	var urlRecent = "http://fcctop100.herokuapp.com/api/fccusers/top/recent";
-	//var urlTotal = "http://fcctop100.herokuapp.com/api/fccusers/top/alltime";
+	var urlTotal = "http://fcctop100.herokuapp.com/api/fccusers/top/alltime";
 
 	var App = function (_React$Component) {
 		_inherits(App, _React$Component);
@@ -20220,8 +20220,6 @@
 			return _this;
 		}
 
-		//makes ajax call
-
 		_createClass(App, [{
 			key: 'loadLeaders',
 			value: function loadLeaders() {
@@ -20232,8 +20230,6 @@
 					datatype: 'json',
 					success: function success(data) {
 						_this2.setState({ data: data });
-						console.log('data: ' + data);
-						console.log('url: ' + _this2.state.url);
 					},
 					error: function error(xhr, status, err) {
 						console.error(_this2.props.url, status, err.toString());
@@ -20250,16 +20246,31 @@
 			//TODO click handler update the ajax url based on which leaderboard type of selected;
 			//use state to store current url
 
-			// 	handleChange(event) {
-			// 		var md = marked(event.target.value);
-			// 		this.setState({content: event.target.value, markdown: md});
-			// 		$('#preview_iframe').contents().find('html').html(this.state.markdown);
-			// 	}
+		}, {
+			key: 'handleClickMonthPoints',
+			value: function handleClickMonthPoints(event) {
+				var _this3 = this;
 
+				event.preventDefault();
+				this.setState({ url: urlRecent }, function () {
+					//had to place this into a callback otherwise the old url would be used for 1-2 clicks
+					_this3.loadLeaders();
+				});
+			}
+		}, {
+			key: 'handleClickTotalPoints',
+			value: function handleClickTotalPoints(event) {
+				var _this4 = this;
+
+				event.preventDefault();
+				this.setState({ url: urlTotal }, function () {
+					_this4.loadLeaders();
+				});
+			}
 		}, {
 			key: 'render',
 			value: function render() {
-				var _this3 = this;
+				var _this5 = this;
 
 				return _react2.default.createElement(
 					'div',
@@ -20282,13 +20293,22 @@
 						)
 					),
 					_react2.default.createElement(
+						'div',
+						{ className: 'row' },
+						_react2.default.createElement(
+							'h2',
+							{ className: 'center' },
+							'Leaderboard'
+						)
+					),
+					_react2.default.createElement(
 						Table,
 						{ data: this.state.data,
 							rowsCount: this.state.data.length,
 							rowHeight: 40,
 							headerHeight: 45,
-							width: 1000,
-							height: 4050 },
+							width: 680,
+							height: 4050, className: 'center' },
 						_react2.default.createElement(Column, {
 							header: _react2.default.createElement(
 								Cell,
@@ -20302,7 +20322,7 @@
 									props.rowIndex + 1
 								);
 							},
-							width: 100
+							width: 50
 						}),
 						_react2.default.createElement(Column, {
 							header: _react2.default.createElement(
@@ -20314,9 +20334,9 @@
 								return _react2.default.createElement(
 									Cell,
 									props,
-									_react2.default.createElement('img', { src: _this3.state.data[props.rowIndex].img, alt: 'camper avatar', className: 'avatar' }),
+									_react2.default.createElement('img', { src: _this5.state.data[props.rowIndex].img, alt: 'camper avatar', className: 'avatar' }),
 									' ',
-									_this3.state.data[props.rowIndex].username
+									_this5.state.data[props.rowIndex].username
 								);
 							},
 							width: 300
@@ -20324,32 +20344,36 @@
 						_react2.default.createElement(Column, {
 							header: _react2.default.createElement(
 								Cell,
-								null,
-								'Points (Last 30 days)'
+								{ onClick: this.handleClickMonthPoints.bind(this),
+									className: 'dynamic-header' },
+								'Points (last month)',
+								_react2.default.createElement('i', { className: this.state.url === urlRecent ? "fa fa-caret-down" : "hide-fa" })
 							),
 							cell: function cell(props) {
 								return _react2.default.createElement(
 									Cell,
 									props,
-									_this3.state.data[props.rowIndex].recent
+									_this5.state.data[props.rowIndex].recent
 								);
 							},
-							width: 300
+							width: 165
 						}),
 						_react2.default.createElement(Column, {
 							header: _react2.default.createElement(
 								Cell,
-								null,
-								'Points (Total)'
+								{ onClick: this.handleClickTotalPoints.bind(this),
+									className: 'dynamic-header' },
+								'Points (total)',
+								_react2.default.createElement('i', { className: this.state.url === urlTotal ? "fa fa-caret-down" : "hide-fa" })
 							),
 							cell: function cell(props) {
 								return _react2.default.createElement(
 									Cell,
 									props,
-									_this3.state.data[props.rowIndex].alltime
+									_this5.state.data[props.rowIndex].alltime
 								);
 							},
-							width: 300
+							width: 165
 						})
 					)
 				);
@@ -27436,7 +27460,7 @@
 
 
 	// module
-	exports.push([module.id, "/* app/main.scss */\nbody {\n  background: #ffe6e6; }\n\n.navbar {\n  background-color: #006400; }\n\n.nav-logo {\n  width: 269px; }\n\n.avatar {\n  width: 28px;\n  border-radius: 3px; }\n\n.gap-medium {\n  height: 40px; }\n\ntextarea, iframe {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 5px;\n  width: 100%;\n  overflow: auto; }\n\n.link {\n  font-size: 16px; }\n\n.footer {\n  padding-top: 30px; }\n\n.fa-heart {\n  color: #e708a6; }\n", ""]);
+	exports.push([module.id, "/* app/main.scss */\nbody {\n  background: #ffe6e6; }\n\n.navbar navbar-default {\n  border-width: 0;\n  border-radius: none; }\n\n.navbar {\n  background-color: #006400; }\n\n.nav-logo {\n  width: 269px;\n  margin-top: -5px; }\n\n.center {\n  text-align: center; }\n\n.avatar {\n  width: 28px;\n  border-radius: 3px; }\n\n.dynamic-header {\n  color: #21586b;\n  text-decoration: underline; }\n\n.fa {\n  text-decoration: underline; }\n\n.hide-fa {\n  display: none; }\n\n.fixedDataTableLayout_main {\n  margin: 0 auto; }\n", ""]);
 
 	// exports
 
