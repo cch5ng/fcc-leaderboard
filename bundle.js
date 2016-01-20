@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e75276b530fa1ad74f7e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "c39316dc9348d66d2864"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -573,7 +573,7 @@
 
 	var css = __webpack_require__(215);
 
-	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, { url: 'http://fcctop100.herokuapp.com/api/fccusers/top/recent' }), document.getElementById('app'));
 
 /***/ },
 /* 1 */
@@ -20205,22 +20205,50 @@
 	var Column = FixedDataTable.Column;
 	var Cell = FixedDataTable.Cell;
 
+	var urlRecent = "http://fcctop100.herokuapp.com/api/fccusers/top/recent";
+	//var urlTotal = "http://fcctop100.herokuapp.com/api/fccusers/top/alltime";
+
 	var App = function (_React$Component) {
 		_inherits(App, _React$Component);
 
 		function App() {
 			_classCallCheck(this, App);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
+
+			_this.state = { data: [], url: urlRecent };
+			return _this;
 		}
 
-		_createClass(App, [{
-			key: 'render',
+		//makes ajax call
 
-			// 	constructor(props) {
-			// 		super(props);
-			// 		this.state = {content: props.initialContent, markdown: props.initialMd};
-			// 	}
+		_createClass(App, [{
+			key: 'loadLeaders',
+			value: function loadLeaders() {
+				var _this2 = this;
+
+				$.ajax({
+					url: this.state.url,
+					datatype: 'json',
+					success: function success(data) {
+						_this2.setState({ data: data });
+						console.log('data: ' + data);
+						console.log('url: ' + _this2.state.url);
+					},
+					error: function error(xhr, status, err) {
+						console.error(_this2.props.url, status, err.toString());
+					}
+				});
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.loadLeaders();
+				//should this be polling?
+			}
+
+			//TODO click handler update the ajax url based on which leaderboard type of selected;
+			//use state to store current url
 
 			// 	handleChange(event) {
 			// 		var md = marked(event.target.value);
@@ -20228,7 +20256,10 @@
 			// 		$('#preview_iframe').contents().find('html').html(this.state.markdown);
 			// 	}
 
+		}, {
+			key: 'render',
 			value: function render() {
+				var _this3 = this;
 
 				return _react2.default.createElement(
 					'div',
@@ -20252,19 +20283,73 @@
 					),
 					_react2.default.createElement(
 						Table,
-						{
-							rowsCount: 101,
-							rowHeight: 30,
+						{ data: this.state.data,
+							rowsCount: this.state.data.length,
+							rowHeight: 40,
 							headerHeight: 45,
 							width: 1000,
-							height: 3000 },
+							height: 4050 },
 						_react2.default.createElement(Column, {
-							cell: _react2.default.createElement(
+							header: _react2.default.createElement(
 								Cell,
 								null,
-								'Basic content'
+								'#'
 							),
-							width: 200
+							cell: function cell(props) {
+								return _react2.default.createElement(
+									Cell,
+									props,
+									props.rowIndex + 1
+								);
+							},
+							width: 100
+						}),
+						_react2.default.createElement(Column, {
+							header: _react2.default.createElement(
+								Cell,
+								null,
+								'Camper Name'
+							),
+							cell: function cell(props) {
+								return _react2.default.createElement(
+									Cell,
+									props,
+									_react2.default.createElement('img', { src: _this3.state.data[props.rowIndex].img, alt: 'camper avatar', className: 'avatar' }),
+									' ',
+									_this3.state.data[props.rowIndex].username
+								);
+							},
+							width: 300
+						}),
+						_react2.default.createElement(Column, {
+							header: _react2.default.createElement(
+								Cell,
+								null,
+								'Points (Last 30 days)'
+							),
+							cell: function cell(props) {
+								return _react2.default.createElement(
+									Cell,
+									props,
+									_this3.state.data[props.rowIndex].recent
+								);
+							},
+							width: 300
+						}),
+						_react2.default.createElement(Column, {
+							header: _react2.default.createElement(
+								Cell,
+								null,
+								'Points (Total)'
+							),
+							cell: function cell(props) {
+								return _react2.default.createElement(
+									Cell,
+									props,
+									_this3.state.data[props.rowIndex].alltime
+								);
+							},
+							width: 300
 						})
 					)
 				);
@@ -27351,7 +27436,7 @@
 
 
 	// module
-	exports.push([module.id, "/* app/main.scss */\nbody {\n  background: #ffe6e6; }\n\n.navbar {\n  background-color: #006400; }\n\n.nav-logo {\n  width: 269px; }\n\n.gap-medium {\n  height: 40px; }\n\ntextarea, iframe {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 5px;\n  width: 100%;\n  overflow: auto; }\n\n.link {\n  font-size: 16px; }\n\n.footer {\n  padding-top: 30px; }\n\n.fa-heart {\n  color: #e708a6; }\n", ""]);
+	exports.push([module.id, "/* app/main.scss */\nbody {\n  background: #ffe6e6; }\n\n.navbar {\n  background-color: #006400; }\n\n.nav-logo {\n  width: 269px; }\n\n.avatar {\n  width: 28px;\n  border-radius: 3px; }\n\n.gap-medium {\n  height: 40px; }\n\ntextarea, iframe {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n  border-radius: 5px;\n  width: 100%;\n  overflow: auto; }\n\n.link {\n  font-size: 16px; }\n\n.footer {\n  padding-top: 30px; }\n\n.fa-heart {\n  color: #e708a6; }\n", ""]);
 
 	// exports
 
