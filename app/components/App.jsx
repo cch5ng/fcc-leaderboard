@@ -64,7 +64,7 @@ export default class App extends React.Component {
 					rowHeight={40}
 					headerHeight={45}
 					width={1000}
-					height={3000}>
+					height={4050}>
 					<Column
 						header={<Cell>#</Cell>}
 						cell={props => (
@@ -78,7 +78,7 @@ export default class App extends React.Component {
 						header={<Cell>Camper Name</Cell>}
 						cell={props => (
 							<Cell {...props}>
-							  {this.state.data[props.rowIndex].username}
+								<img src={this.state.data[props.rowIndex].img} alt="camper avatar" className="avatar"/> {this.state.data[props.rowIndex].username}
 							</Cell>
 						)}
 						width={300}
